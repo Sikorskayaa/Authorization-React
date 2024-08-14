@@ -1,6 +1,14 @@
 import css from "./contact.module.css";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-function Contact({ data: { name, number, id }, onDelete }) {
+function Contact({ data: { name, number, id } }) {
+  const dispatch = useDispatch();
+
+  function onDelete(userId) {
+    dispatch(deleteContact(userId));
+  }
+
   return (
     <>
       <div>
