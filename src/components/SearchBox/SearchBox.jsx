@@ -6,12 +6,8 @@ import css from "./searchBox.module.css";
 function SearchBox() {
   const id = useId();
 
-  const selectNameFilter = useSelector((state) => state.filterbox.filters.name);
   const dispatch = useDispatch();
-
-  function onFilter(e) {
-    dispatch(changeFilter(e.target.value));
-  }
+  const filter = useSelector((state) => state.filters.name);
 
   return (
     <label htmlFor={id} className={css.box}>
@@ -20,8 +16,8 @@ function SearchBox() {
         type="text"
         id={id}
         className={css.filter}
-        value={selectNameFilter}
-        onChange={onFilter}
+        value={filter}
+        onChange={(e) => dispatch(changeFilter(e.target.value))}
       />
     </label>
   );
