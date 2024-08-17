@@ -20,6 +20,7 @@ function SearchBox() {
       <input
         type="text"
         id={id}
+        value={filter}
         className={css.filter}
         onChange={handleChange}
       />
