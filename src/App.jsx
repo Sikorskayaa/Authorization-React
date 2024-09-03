@@ -1,12 +1,17 @@
 import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
-import { nanoid } from "nanoid";
+import { fetchContacts } from "./redux/contactsOps";
+
 import { useDispatch, useSelector } from "react-redux";
-import { addContact, deleteContact } from "./redux/contactsSlice";
-import { changeFilter } from "./redux/filtersSlice";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
   return (
     <>
       <h1>Phonebook</h1>
