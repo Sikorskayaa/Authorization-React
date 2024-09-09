@@ -1,4 +1,5 @@
-import { apiRegister } from "./operations";
+import { createSlice } from "@reduxjs/toolkit";
+import { apiRegister, apiLogin, isRefresh, logOut } from "./operations";
 
 const INITIAL_STATE = {
   user: {
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   error: null,
 };
 
-const authSlice = {
+const authSlice = createSlice({
   name: "auth",
   initialState: INITIAL_STATE,
   extraReducers: (builder) =>
@@ -37,7 +38,30 @@ const authSlice = {
       })
       .addCase(apiLogin.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(isRefresh.pending, (state) => {
+        state.error = null;
+        state.isRefreshing = true;
+      })
+      .addCase(isRefresh.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        state.isRefreshing = false;
+      })
+      .addCase(isRefresh.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isRefreshing = false;
+      })
+      .addCase(logOut.pending, (state) => {
+        state.error = null;
+        state.isRefreshing = true;
+      })
+      .addCase(logOut.fulfilled, () => {
+        INITIAL_STATE;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.error = action.payload;
       }),
-};
+});
 
 export const authReducer = authSlice.reducer;

@@ -9,7 +9,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const initialValues = { email: "", password: "" };
 
-  //   const error = useSelector(selectorsAuthError);
+  const error = useSelector(selectorsAuthError);
 
   const LoginSchema = Yup.object().shape({
     password: Yup.string()
@@ -57,7 +57,7 @@ function LoginPage() {
           LogIn
         </button>
 
-        {/* {error && <p>Ooops someting went wrong</p>} */}
+        {error && <p>Ooops someting went wrong {error} </p>}
       </Form>
     </Formik>
   );

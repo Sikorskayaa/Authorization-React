@@ -65,7 +65,7 @@ function RegistratitonPage() {
         <button type="submit" className={css.btnSubmit}>
           Sign Up
         </button>
-        {error && <p>Ooops someting went wrong{error}</p>}
+        {error && <p>Ooops someting went wrong {error}</p>}
       </Form>
     </Formik>
   );
