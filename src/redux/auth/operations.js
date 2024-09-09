@@ -15,7 +15,6 @@ export const apiLogin = createAsyncThunk(
     try {
       const { data } = await instance.post("users/login", formData);
       setAuthHeaders(data.token);
-      console.log(data);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -36,13 +35,13 @@ export const apiRegister = createAsyncThunk(
   }
 );
 
-export const logOut = createAsyncThunk("auth/logout", async (_, thunkApi) => {
+export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   try {
     await instance.post("/users/logout");
-    localStorage.removeItem("token");
+    setAuthHeaders("");
     return;
   } catch (error) {
-    thunkApi.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue();
   }
 });
 
@@ -52,12 +51,11 @@ export const isRefresh = createAsyncThunk(
     try {
       const state = thunkApi.getState();
       const token = state.auth.token;
-      setAuthHeaders(token);
+      // SetAuthHeaders(token);
       const { data } = await instance.get("/users/current");
-      console.log(data);
       return data;
     } catch (error) {
-      thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue();
     }
   },
   {
@@ -65,7 +63,6 @@ export const isRefresh = createAsyncThunk(
       const state = thunkApi.getState();
       const token = state.auth.token;
       if (token) return true;
-
       return false;
     },
   }

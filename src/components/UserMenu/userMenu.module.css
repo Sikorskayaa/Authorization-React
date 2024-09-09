@@ -1,0 +1,21 @@
+.wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.btn:hover {
+  background-color: aqua;
+  color: white;
+}
