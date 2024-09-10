@@ -12,11 +12,10 @@ const ContactsPage = lazy(() => import("./pages/ContactsPage/ContactsPage"));
 const RegistratitonPage = lazy(() =>
   import("./pages/RegistratitonPage/RegistrationPage")
 );
-
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 
 function App() {
-  const isRefreshing = useSelector(selectorsAuthIsRefreshing);
+  const refreshing = useSelector(selectorsAuthIsRefreshing);
 
   const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ function App() {
     dispatch(isRefresh());
   }, [dispatch]);
 
-  return isRefreshing ? (
+  return refreshing ? (
     <p>User is refreshing, please wait...</p>
   ) : (
     <>

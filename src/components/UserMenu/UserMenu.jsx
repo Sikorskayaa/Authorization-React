@@ -25,4 +25,5 @@ function UserMenu() {
     </div>
   );
 }
+
 export default UserMenu;

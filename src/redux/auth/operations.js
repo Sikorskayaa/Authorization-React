@@ -51,11 +51,11 @@ export const isRefresh = createAsyncThunk(
     try {
       const state = thunkApi.getState();
       const token = state.auth.token;
-      // SetAuthHeaders(token);
+      setAuthHeaders(token);
       const { data } = await instance.get("/users/current");
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue();
+      thunkApi.rejectWithValue(error.message);
     }
   },
   {
@@ -63,6 +63,7 @@ export const isRefresh = createAsyncThunk(
       const state = thunkApi.getState();
       const token = state.auth.token;
       if (token) return true;
+
       return false;
     },
   }
